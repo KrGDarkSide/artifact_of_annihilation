@@ -127,6 +127,10 @@ PrefabInstance:
       propertyPath: 'RandomHitSparks.Array.data[3]'
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 6370966072896210225, guid: 25a1b0efadb966e44889fce712c8ff8d, type: 3}
+      propertyPath: MaxHealth
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 6809973363424661249, guid: 25a1b0efadb966e44889fce712c8ff8d, type: 3}
       propertyPath: DetectionRange
       value: 8
@@ -135,6 +139,14 @@ PrefabInstance:
       propertyPath: DetectionSourcePoint
       value: 
       objectReference: {fileID: 7397897252654403430}
+    - target: {fileID: 9087143436424816424, guid: 25a1b0efadb966e44889fce712c8ff8d, type: 3}
+      propertyPath: DropRate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9087143436424816424, guid: 25a1b0efadb966e44889fce712c8ff8d, type: 3}
+      propertyPath: LootPrefab
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 797398738606809810, guid: 25a1b0efadb966e44889fce712c8ff8d, type: 3}
     m_RemovedGameObjects:

@@ -56,9 +56,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: EN_General
       objectReference: {fileID: 0}
+    - target: {fileID: 1560123171481264636, guid: e261bde81282b2448a1a17e7fe482382, type: 3}
+      propertyPath: BulletsPerShot
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1560123171481264636, guid: e261bde81282b2448a1a17e7fe482382, type: 3}
+      propertyPath: DelayBetweenShots
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5836220112111371276, guid: e261bde81282b2448a1a17e7fe482382, type: 3}
       propertyPath: MaxHealth
-      value: 180
+      value: 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 6203073068817206844, guid: e261bde81282b2448a1a17e7fe482382, type: 3}
+      propertyPath: DetectionRange
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 7397897252654403430, guid: e261bde81282b2448a1a17e7fe482382, type: 3}
       propertyPath: m_LocalPosition.x
@@ -84,6 +96,14 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: dc31e96588c63f34ead5a7521aaf6638, type: 2}
+    - target: {fileID: 8541173901327558165, guid: e261bde81282b2448a1a17e7fe482382, type: 3}
+      propertyPath: DropRate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8541173901327558165, guid: e261bde81282b2448a1a17e7fe482382, type: 3}
+      propertyPath: LootPrefab
+      value: 
+      objectReference: {fileID: 2529580269645609534, guid: 9973c412032becb4ca116ca08be62edf, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

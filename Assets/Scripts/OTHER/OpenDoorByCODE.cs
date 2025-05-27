@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using System;
 
 public class OpenDoorByCODE : MonoBehaviour
 {
@@ -7,19 +8,14 @@ public class OpenDoorByCODE : MonoBehaviour
     public Animator anim_door;
     public Renderer rend;
 
-    [SerializeField]
-    private TextMeshProUGUI codeText;
-    private string codeTextValue = "";
-    public string safeCode;
-    public GameObject codePanel;
-
-    public MonoBehaviour playerControler;
-    public MonoBehaviour cameraController;
-    public MonoBehaviour gameManager;
+    public GameObject codePanelUI;
+    public TMP_Text displayCode;
+    private string enteredCode = "";
+    public string correctCode = "8738";
 
     private bool playerInRange;
-    private bool isCodePanelOpen = false;
 
+    public MonoBehaviour playerController;
 
     // ====================================================================================
 
@@ -27,26 +23,30 @@ public class OpenDoorByCODE : MonoBehaviour
     void Start()
     {
         playerInRange = false;
-
         anim_bt = GetComponent<Animator>();
-        codeText = codePanel.GetComponentInChildren<TextMeshProUGUI>();
-
-        if (codeText == null)
-            Debug.LogError("codeText not found in codePanel!");
-
-        codePanel.SetActive(false);
+        CloseCodePanel();
     }
 
     void Update()
     {
         if (playerInRange && Input.GetKeyDown(KeyCode.E))
         {
-            OpenCodePanel();
+            if (!codePanelUI.activeSelf)
+            {
+                OpenCodePanel();
+            }
         }
 
-        if (playerInRange && Input.GetKeyDown(KeyCode.Escape))
+        if (codePanelUI.activeSelf && Input.GetKeyDown(KeyCode.Escape))
         {
            CloseCodePanel();
+        }
+
+        if (codePanelUI.activeSelf)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            Time.timeScale = 0f;
         }
     }
 
@@ -75,72 +75,61 @@ public class OpenDoorByCODE : MonoBehaviour
 
     public void AddCodeDigit(string digit)
     {
-        if (!codePanel.activeSelf) return;
-
-        if (codeTextValue.Length < 4)
-        {
-            codeTextValue += digit;
-            codeText.text = codeTextValue;
-            Debug.Log("Current code: " + codeTextValue);
-        }
+        enteredCode += digit;
+        UpdateDisplay();
     }
 
     public void DelDigits()
     {
-        if (codeTextValue.Length > 0)
+        // Remove the last digit from the entered code
+        if (enteredCode.Length > 0)
         {
-            codeTextValue = codeTextValue.Substring(0, codeTextValue.Length - 1);
-            codeText.text = codeTextValue;
+            enteredCode = enteredCode.Substring(0, enteredCode.Length - 1);
+            UpdateDisplay();
         }
     }
 
     public void EneterCode()
     {
-        if (codeTextValue == safeCode)
+        if (enteredCode == correctCode)
         {
             anim_door.SetTrigger("open");
-            CloseCodePanel();
-
             anim_bt.SetTrigger("Pressed");
 
-            if (rend != null)
-            {
-                Material mat = rend.material;
-                mat.DisableKeyword("_EMISSION");
-                mat.SetColor("_EmissionColor", Color.black);
-            }
+            rend.material.DisableKeyword("_EMISSION");
+            rend.material.SetColor("_EmissionColor", Color.black);
+
+            CloseCodePanel();
         }
         else
         {
-            codeTextValue = "";
-            codeText.text = codeTextValue;
+            rend.material.SetColor("_EmissionColor", Color.blue);
+
+            enteredCode = "";
+            UpdateDisplay();
         }
     }
 
     private void OpenCodePanel()
     {
-        isCodePanelOpen = true;
-        codePanel.SetActive(true);
+        codePanelUI.SetActive(true);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-
-        playerControler.enabled = false;
-        cameraController.enabled = false;
-        gameManager.enabled = false;
+        Time.timeScale = 0f;
     }
 
     private void CloseCodePanel()
     {
-        isCodePanelOpen = false;
-        codePanel.SetActive(false);
-        codeTextValue = "";
-        codeText.text = "";
-
+        codePanelUI.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        Time.timeScale = 1f;
+        enteredCode = "";
+        UpdateDisplay();
+    }
 
-        playerControler.enabled = true;
-        cameraController.enabled = true;
-        gameManager.enabled = true;
+    private void UpdateDisplay()
+    {
+        displayCode.text = enteredCode;
     }
 }
