@@ -5,16 +5,15 @@ namespace Unity.FPS.Gameplay
 {
     public class PickupKey : Pickup
     {
-        public static bool HasKey = false;
+        public static int playersKeys = 0;
 
         protected override void OnPicked(PlayerCharacterController playerController)
         {
             base.OnPicked(playerController);
 
-            HasKey = true;
-            Debug.Log("Key picked up!");
+            playersKeys++;
 
-            // Optionally destroy the key object
+            // Destroy the key object
             Destroy(gameObject);
         }
     }

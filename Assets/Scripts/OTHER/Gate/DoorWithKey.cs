@@ -5,6 +5,7 @@ public class DoorWithKey : MonoBehaviour
 {
     private Animator anim;
     public PadlockEffect padlockEffect;
+    public int keysRequired;
 
     void Start()
     {
@@ -13,7 +14,7 @@ public class DoorWithKey : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && PickupKey.HasKey)
+        if (other.CompareTag("Player") && PickupKey.playersKeys >= keysRequired)
         {
             anim.SetTrigger("Open");
 
