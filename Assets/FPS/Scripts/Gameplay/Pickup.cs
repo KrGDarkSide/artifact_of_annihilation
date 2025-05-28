@@ -19,8 +19,8 @@ namespace Unity.FPS.Gameplay
 
         public Rigidbody PickupRigidbody { get; private set; }
 
-        Collider m_Collider;
-        Vector3 m_StartPosition;
+        protected Collider m_Collider;
+        protected Vector3 m_StartPosition;
         bool m_HasPlayedFeedback;
 
         protected virtual void Start()

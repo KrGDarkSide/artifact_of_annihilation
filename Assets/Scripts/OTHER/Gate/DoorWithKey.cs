@@ -1,25 +1,53 @@
+using System.Collections.Generic;
 using Unity.FPS.Gameplay;
 using UnityEngine;
 
 public class DoorWithKey : MonoBehaviour
 {
     private Animator anim;
-    public PadlockEffect padlockEffect;
-    public int keysRequired;
+
+    public List<string> requiredKeyIDs;
+    public List<KeyPadlockPair> padlocks;
+
+    [System.Serializable]
+    public class KeyPadlockPair
+    {
+        public string keyID;
+        public PadlockEffect padlock;
+    }
 
     void Start()
     {
         anim = GetComponent<Animator>();
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider obj)
     {
-        if (other.CompareTag("Player") && PickupKey.playersKeys >= keysRequired)
+        if (obj.CompareTag("Player"))
         {
-            anim.SetTrigger("Open");
+            foreach (var pair in padlocks)
+            {
+                if (PickupKey.collectedKeys.Contains(pair.keyID) && pair.padlock != null)
+                {
+                    pair.padlock.UnlockPadlock();
+                }
+            }
 
-            if (padlockEffect != null)
-            { padlockEffect.UnlockPadlock(); }
+
+            if (HasAllKeys())
+            {
+                anim.SetTrigger("Open");
+            }
         }
+    }
+
+    bool HasAllKeys()
+    {
+        foreach (string keyID in requiredKeyIDs)
+        {
+            if (!PickupKey.collectedKeys.Contains(keyID))
+                return false;
+        }
+        return true;
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Unity.FPS.Game;
 using UnityEngine;
 
@@ -5,15 +6,19 @@ namespace Unity.FPS.Gameplay
 {
     public class PickupKey : Pickup
     {
-        public static int playersKeys = 0;
+        public string keyID;
+
+        public static HashSet<string> collectedKeys = new HashSet<string>();
 
         protected override void OnPicked(PlayerCharacterController playerController)
         {
             base.OnPicked(playerController);
 
-            playersKeys++;
+            if (!collectedKeys.Contains(keyID))
+            {
+                collectedKeys.Add(keyID);
+            }
 
-            // Destroy the key object
             Destroy(gameObject);
         }
     }
