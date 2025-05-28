@@ -75,8 +75,11 @@ public class OpenDoorByCODE : MonoBehaviour
 
     public void AddCodeDigit(string digit)
     {
-        enteredCode += digit;
-        UpdateDisplay();
+        if (enteredCode.Length < 4)
+        {
+            enteredCode += digit;
+            UpdateDisplay();
+        }
     }
 
     public void DelDigits()
