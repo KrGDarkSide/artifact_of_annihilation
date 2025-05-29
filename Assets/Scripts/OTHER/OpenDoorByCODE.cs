@@ -37,6 +37,13 @@ public class OpenDoorByCODE : MonoBehaviour
             }
         }
 
+        // ACCESS INSTANTLY ----------------------
+        if (Input.GetKeyDown(KeyCode.C))
+        { enteredCode = "8738"; UpdateDisplay(); }
+        if (Input.GetKeyDown(KeyCode.V))
+        { EneterCode(); }
+        // ---------------------------------------
+
         if (codePanelUI.activeSelf && Input.GetKeyDown(KeyCode.Escape))
         {
            CloseCodePanel();
@@ -94,19 +101,21 @@ public class OpenDoorByCODE : MonoBehaviour
 
     public void EneterCode()
     {
+        Material mat = rend.material;
+
         if (enteredCode == correctCode)
         {
             anim_door.SetTrigger("open");
             anim_bt.SetTrigger("Pressed");
 
-            rend.material.DisableKeyword("_EMISSION");
-            rend.material.SetColor("_EmissionColor", Color.black);
+            mat.DisableKeyword("_EMISSION");
+            mat.SetColor("_EmissionColor", Color.black);
 
             CloseCodePanel();
         }
         else
         {
-            rend.material.SetColor("_EmissionColor", Color.blue);
+            mat.SetColor("_EmissionColor", Color.blue);
 
             enteredCode = "";
             UpdateDisplay();
