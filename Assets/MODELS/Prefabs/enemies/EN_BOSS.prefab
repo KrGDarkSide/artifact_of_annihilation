@@ -70,7 +70,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6203073068817206844, guid: e261bde81282b2448a1a17e7fe482382, type: 3}
       propertyPath: DetectionRange
-      value: 30
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 7397897252654403430, guid: e261bde81282b2448a1a17e7fe482382, type: 3}
       propertyPath: m_LocalPosition.x
